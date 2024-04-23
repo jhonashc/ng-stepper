@@ -1,0 +1,17 @@
+<div class="container">
+  <ul class="stepper">
+    @for (formStep of formSteps; track formStep.id; let idx = $index) {
+    <li
+      class="stepper__item"
+      [ngClass]="{
+        'stepper__item--active': selectedIndex() === idx,
+        'stepper__item--done': isStepCompleted(formStep.stepType)
+      }"
+    >
+      {{ formStep.label | titlecase }}
+    </li>
+    }
+  </ul>
+
+  <router-outlet />
+</div>
