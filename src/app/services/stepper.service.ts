@@ -9,13 +9,13 @@ interface FormState {
   };
 }
 
-export type StepsType = keyof FormState['steps'] | 'untrack';
+export type StepType = keyof FormState['steps'] | 'untrack';
 
 interface FormStep {
   id: number;
   label: string;
   route: string;
-  stepType: StepsType;
+  stepType: StepType;
 }
 
 interface DetailsStep {
@@ -112,7 +112,7 @@ export class StepperService {
     }));
   }
 
-  isStepCompleted(stepType: StepsType): boolean {
+  isStepCompleted(stepType: StepType): boolean {
     return this._formState().steps.hasOwnProperty(stepType);
   }
 

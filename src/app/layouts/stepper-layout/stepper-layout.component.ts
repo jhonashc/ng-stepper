@@ -2,7 +2,7 @@ import { Component, effect, inject } from '@angular/core';
 import { NgClass, TitleCasePipe } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
-import { StepperService, StepsType } from '../../services/stepper.service';
+import { StepperService, StepType } from '../../services/stepper.service';
 
 @Component({
   selector: 'app-stepper-layout',
@@ -22,7 +22,7 @@ export class StepperLayoutComponent {
     effect(() => this.stepperService.redirectTo(this.currentRoute()));
   }
 
-  isStepCompleted(stepType: StepsType): boolean {
+  isStepCompleted(stepType: StepType): boolean {
     return this.stepperService.isStepCompleted(stepType);
   }
 }
