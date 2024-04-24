@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 
 import { Step, StepperState } from '../interfaces/stepper.interface';
 
-import { StepDataActions } from '../types/stepper.type';
+import { StepDataActions, StepType } from '../types/stepper.type';
 
 @Injectable({
   providedIn: 'root',
@@ -23,11 +23,13 @@ export class StepperService {
       id: 1,
       label: 'Details',
       route: '/stepper/details',
+      stepType: 'details'
     },
     {
       id: 2,
       label: 'Preferences',
       route: '/stepper/preferences',
+      stepType: 'preferences'
     },
     {
       id: 3,
@@ -76,6 +78,14 @@ export class StepperService {
     }));
   }
 
+  isStepCompleted(stepType: StepType): boolean {
+    return this._stepperState().steps.hasOwnProperty(stepType);
+  }
+
+  redirectTo(route: string): void {
+    this.router.navigateByUrl(route);
+  }
+
   saveToLocalStorage(): void {
     localStorage.setItem(
       this.STEPPER_LOCAL_STORAGE_KEY,
@@ -91,9 +101,5 @@ export class StepperService {
     if (!stepperState) return;
 
     this._stepperState.set(JSON.parse(stepperState));
-  }
-
-  redirectTo(route: string): void {
-    this.router.navigateByUrl(route);
   }
 }
