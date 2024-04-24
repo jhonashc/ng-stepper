@@ -4,6 +4,8 @@ import { RouterOutlet } from '@angular/router';
 
 import { StepperService } from '../../services/stepper.service';
 
+import { StepType } from '../../types/stepper.type';
+
 @Component({
   selector: 'app-stepper-layout',
   standalone: true,
@@ -22,5 +24,9 @@ export class StepperLayoutComponent {
     effect(() => {
       this.stepperService.redirectTo(this.currentRoute());
     });
+  }
+
+  isStepCompleted(stepType: StepType): boolean {
+    return this.stepperService.isStepCompleted(stepType);
   }
 }

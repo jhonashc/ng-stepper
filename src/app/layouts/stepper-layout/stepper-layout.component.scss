@@ -13,5 +13,10 @@
     &--active {
       background: red;
     }
+
+    &--done,
+    &--active {
+      font-weight: bold;
+    }
   }
 }
