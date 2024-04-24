@@ -1,9 +1,9 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Step, StepperState } from '../interfaces/stepper.interface';
+import { Step, StepInfo, StepperState } from '../interfaces/stepper.interface';
 
-import { StepDataActions, StepType } from '../types/stepper.type';
+import { StepName } from '../types/stepper.type';
 
 @Injectable({
   providedIn: 'root',
@@ -23,13 +23,13 @@ export class StepperService {
       id: 1,
       label: 'Details',
       route: '/stepper/details',
-      stepType: 'details'
+      name: 'details',
     },
     {
       id: 2,
       label: 'Preferences',
       route: '/stepper/preferences',
-      stepType: 'preferences'
+      name: 'preferences',
     },
     {
       id: 3,
@@ -68,18 +68,18 @@ export class StepperService {
     }));
   }
 
-  setStepData({ stepName, data }: StepDataActions): void {
+  setStepData({ name, data }: StepInfo): void {
     this._stepperState.update((state) => ({
       ...state,
       steps: {
         ...state.steps,
-        [stepName]: data,
+        [name]: data,
       },
     }));
   }
 
-  isStepCompleted(stepType: StepType): boolean {
-    return this._stepperState().steps.hasOwnProperty(stepType);
+  isStepCompleted(name: StepName): boolean {
+    return this._stepperState().steps.hasOwnProperty(name);
   }
 
   redirectTo(route: string): void {
