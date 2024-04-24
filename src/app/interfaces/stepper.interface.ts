@@ -1,3 +1,5 @@
+import { StepType } from '../types/stepper.type';
+
 export interface DetailsStep {
   name: string;
   dueDate: Date;
@@ -20,4 +22,5 @@ export interface Step {
   id: number;
   label: string;
   route: string;
+  stepType?: StepType;
 }
