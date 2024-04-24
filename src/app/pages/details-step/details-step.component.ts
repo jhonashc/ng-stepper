@@ -14,7 +14,7 @@ export class DetailsStepComponent {
 
   nextStep(): void {
     this.stepperService.setStepData({
-      stepName: 'details',
+      name: 'details',
       data: {
         name: 'John Doe',
         dueDate: new Date(),
@@ -22,6 +22,5 @@ export class DetailsStepComponent {
     });
 
     this.stepperService.nextStep();
-    this.stepperService.redirectTo('/stepper/preferences');
   }
 }

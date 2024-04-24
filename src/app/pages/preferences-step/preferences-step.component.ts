@@ -14,12 +14,11 @@ export class PreferencesStepComponent {
 
   prevStep(): void {
     this.stepperService.prevStep();
-    this.stepperService.redirectTo('/stepper/details');
   }
 
   nextStep(): void {
     this.stepperService.setStepData({
-      stepName: 'preferences',
+      name: 'preferences',
       data: {
         receiveEmails: false,
         receiveNotifications: true,
@@ -27,6 +26,5 @@ export class PreferencesStepComponent {
     });
 
     this.stepperService.nextStep();
-    this.stepperService.redirectTo('/stepper/complete');
   }
 }

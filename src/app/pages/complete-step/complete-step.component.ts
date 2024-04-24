@@ -14,6 +14,5 @@ export class CompleteStepComponent {
 
   prevStep(): void {
     this.stepperService.prevStep();
-    this.stepperService.redirectTo('/stepper/preferences');
   }
 }
