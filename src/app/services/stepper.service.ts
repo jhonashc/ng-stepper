@@ -59,7 +59,7 @@ export class StepperService {
     }));
   }
 
-  setcurrentIndex(index: number): void {
+  setCurrentIndex(index: number): void {
     this._stepperState.update((state) => ({
       ...state,
       currentIndex: index,
