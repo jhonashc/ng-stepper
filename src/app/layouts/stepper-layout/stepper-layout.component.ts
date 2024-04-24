@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 
 import { StepperService } from '../../services/stepper.service';
 
-import { StepType } from '../../types/stepper.type';
+import { StepName } from '../../types/stepper.type';
 
 @Component({
   selector: 'app-stepper-layout',
@@ -26,7 +26,7 @@ export class StepperLayoutComponent {
     });
   }
 
-  isStepCompleted(stepType: StepType): boolean {
-    return this.stepperService.isStepCompleted(stepType);
+  isStepCompleted(name: StepName): boolean {
+    return this.stepperService.isStepCompleted(name);
   }
 }

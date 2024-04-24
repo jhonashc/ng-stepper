@@ -5,7 +5,7 @@
       class="stepper__item"
       [ngClass]="{
         'stepper__item--active': currentIndex() === idx,
-        'stepper__item--done': step.stepType && isStepCompleted(step.stepType)
+        'stepper__item--done': step.name && isStepCompleted(step.name)
       }"
     >
       {{ step.label | titlecase }}
