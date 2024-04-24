@@ -1,4 +1,4 @@
-import { StepType } from '../types/stepper.type';
+import { StepName } from '../types/stepper.type';
 
 export interface DetailsStep {
   name: string;
@@ -8,6 +8,11 @@ export interface DetailsStep {
 export interface PreferencesStep {
   receiveEmails: boolean;
   receiveNotifications: boolean;
+}
+
+export interface StepInfo {
+  name: StepName;
+  data: DetailsStep | PreferencesStep;
 }
 
 export interface StepperState {
@@ -22,5 +27,5 @@ export interface Step {
   id: number;
   label: string;
   route: string;
-  stepType?: StepType;
+  name?: StepName;
 }
