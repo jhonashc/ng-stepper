@@ -2,6 +2,8 @@ import { Routes } from '@angular/router';
 
 import { StepperLayoutComponent } from './layouts/stepper-layout/stepper-layout.component';
 
+import { previousStepCompletionGuard } from './guards/previous-step-completion.guard';
+
 export const routes: Routes = [
   {
     path: 'stepper',
@@ -16,6 +18,7 @@ export const routes: Routes = [
       },
       {
         path: 'preferences',
+        canActivate: [previousStepCompletionGuard('details')],
         loadComponent: () =>
           import('./pages/preferences-step/preferences-step.component').then(
             (m) => m.PreferencesStepComponent
@@ -23,6 +26,7 @@ export const routes: Routes = [
       },
       {
         path: 'complete',
+        canActivate: [previousStepCompletionGuard('preferences')],
         loadComponent: () =>
           import('./pages/complete-step/complete-step.component').then(
             (m) => m.CompleteStepComponent
