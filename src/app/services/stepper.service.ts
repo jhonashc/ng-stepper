@@ -1,32 +1,9 @@
 import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-interface FormState {
-  selectedIndex: number;
-  steps: {
-    details?: DetailsStep;
-    preferences?: PreferencesStep;
-  };
-}
+import { Step, StepperState } from '../interfaces/stepper.interface';
 
-export type StepType = keyof FormState['steps'] | 'untrack';
-
-interface FormStep {
-  id: number;
-  label: string;
-  route: string;
-  stepType: StepType;
-}
-
-interface DetailsStep {
-  name: string;
-  dueDate: Date;
-}
-
-interface PreferencesStep {
-  receiveEmails: boolean;
-  receiveNotifications: boolean;
-}
+import { StepDataActions } from '../types/stepper.type';
 
 @Injectable({
   providedIn: 'root',
@@ -36,35 +13,32 @@ export class StepperService {
 
   private router = inject(Router);
 
-  private _formState = signal<FormState>({
-    selectedIndex: 0,
+  private _stepperState = signal<StepperState>({
+    currentIndex: 0,
     steps: {},
   });
 
-  public formSteps: FormStep[] = [
+  public stepList: Step[] = [
     {
       id: 1,
       label: 'Details',
       route: '/stepper/details',
-      stepType: 'details',
     },
     {
       id: 2,
       label: 'Preferences',
       route: '/stepper/preferences',
-      stepType: 'preferences',
     },
     {
       id: 3,
       label: 'Complete',
       route: '/stepper/complete',
-      stepType: 'untrack'
     },
   ];
 
-  public formState = computed(() => this._formState());
-  public selectedIndex = computed(() => this.formState().selectedIndex);
-  public currentRoute = computed(() => this.formSteps[this.selectedIndex()].route);
+  public stepperState = computed(() => this._stepperState());
+  public currentIndex = computed(() => this.stepperState().currentIndex);
+  public currentRoute = computed(() => this.stepList[this.currentIndex()].route);
 
   constructor() {
     effect(() => this.loadFromLocalStorage(), { allowSignalWrites: true });
@@ -72,54 +46,40 @@ export class StepperService {
   }
 
   nextStep(): void {
-    this._formState.update((state) => ({
+    this._stepperState.update((state) => ({
       ...state,
-      selectedIndex: state.selectedIndex + 1,
+      currentIndex: state.currentIndex + 1,
     }));
   }
 
   prevStep(): void {
-    this._formState.update((state) => ({
+    this._stepperState.update((state) => ({
       ...state,
-      selectedIndex: state.selectedIndex - 1,
+      currentIndex: state.currentIndex - 1,
     }));
   }
 
-  setSelectedIndex(index: number): void {
-    this._formState.update((state) => ({
+  setcurrentIndex(index: number): void {
+    this._stepperState.update((state) => ({
       ...state,
-      selectedIndex: index,
+      currentIndex: index,
     }));
   }
 
-  setDetailsStep(detailsStep: DetailsStep): void {
-    this._formState.update((state) => ({
-      ...state,
-      steps: {
-        ...state.steps,
-        details: detailsStep,
-      },
-    }));
-  }
-
-  setPreferencesStep(preferencesStep: PreferencesStep): void {
-    this._formState.update((state) => ({
+  setStepData({ stepName, data }: StepDataActions): void {
+    this._stepperState.update((state) => ({
       ...state,
       steps: {
         ...state.steps,
-        preferences: preferencesStep,
+        [stepName]: data,
       },
     }));
-  }
-
-  isStepCompleted(stepType: StepType): boolean {
-    return this._formState().steps.hasOwnProperty(stepType);
   }
 
   saveToLocalStorage(): void {
     localStorage.setItem(
       this.STEPPER_LOCAL_STORAGE_KEY,
-      JSON.stringify(this._formState())
+      JSON.stringify(this._stepperState())
     );
   }
 
@@ -130,7 +90,7 @@ export class StepperService {
 
     if (!stepperState) return;
 
-    this._formState.set(JSON.parse(stepperState));
+    this._stepperState.set(JSON.parse(stepperState));
   }
 
   redirectTo(route: string): void {
