@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { StepperService } from '../../services/stepper.service';
 
@@ -9,12 +9,8 @@ import { StepperService } from '../../services/stepper.service';
   templateUrl: './preferences-step.component.html',
   styleUrl: './preferences-step.component.scss',
 })
-export class PreferencesStepComponent implements OnInit {
+export class PreferencesStepComponent {
   private stepperService = inject(StepperService);
-
-  ngOnInit(): void {
-    this.stepperService.setSelectedIndex(1);
-  }
 
   prevStep(): void {
     this.stepperService.prevStep();
@@ -22,9 +18,12 @@ export class PreferencesStepComponent implements OnInit {
   }
 
   nextStep(): void {
-    this.stepperService.setPreferencesStep({
-      receiveEmails: false,
-      receiveNotifications: true,
+    this.stepperService.setStepData({
+      stepName: 'preferences',
+      data: {
+        receiveEmails: false,
+        receiveNotifications: true,
+      },
     });
 
     this.stepperService.nextStep();

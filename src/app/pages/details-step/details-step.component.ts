@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { StepperService } from '../../services/stepper.service';
 
@@ -9,17 +9,16 @@ import { StepperService } from '../../services/stepper.service';
   templateUrl: './details-step.component.html',
   styleUrl: './details-step.component.scss',
 })
-export class DetailsStepComponent implements OnInit {
+export class DetailsStepComponent {
   private stepperService = inject(StepperService);
 
-  ngOnInit(): void {
-    this.stepperService.setSelectedIndex(0);
-  }
-
   nextStep(): void {
-    this.stepperService.setDetailsStep({
-      name: 'John Doe',
-      dueDate: new Date(),
+    this.stepperService.setStepData({
+      stepName: 'details',
+      data: {
+        name: 'John Doe',
+        dueDate: new Date(),
+      },
     });
 
     this.stepperService.nextStep();
