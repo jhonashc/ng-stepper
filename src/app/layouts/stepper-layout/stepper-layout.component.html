@@ -1,14 +1,13 @@
 <div class="container">
   <ul class="stepper">
-    @for (formStep of formSteps; track formStep.id; let idx = $index) {
+    @for (step of stepList; track step.id; let idx = $index) {
     <li
       class="stepper__item"
       [ngClass]="{
-        'stepper__item--active': selectedIndex() === idx,
-        'stepper__item--done': isStepCompleted(formStep.stepType)
+        'stepper__item--active': currentIndex() === idx
       }"
     >
-      {{ formStep.label | titlecase }}
+      {{ step.label | titlecase }}
     </li>
     }
   </ul>

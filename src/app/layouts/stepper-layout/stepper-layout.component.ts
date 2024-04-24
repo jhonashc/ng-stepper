@@ -1,8 +1,8 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, inject, effect } from '@angular/core';
 import { NgClass, TitleCasePipe } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
-import { StepperService, StepType } from '../../services/stepper.service';
+import { StepperService } from '../../services/stepper.service';
 
 @Component({
   selector: 'app-stepper-layout',
@@ -14,15 +14,13 @@ import { StepperService, StepType } from '../../services/stepper.service';
 export class StepperLayoutComponent {
   private stepperService = inject(StepperService);
 
-  public formSteps = this.stepperService.formSteps;
-  public selectedIndex = this.stepperService.selectedIndex;
+  public stepList = this.stepperService.stepList;
+  public currentIndex = this.stepperService.currentIndex;
   public currentRoute = this.stepperService.currentRoute;
 
   constructor() {
-    effect(() => this.stepperService.redirectTo(this.currentRoute()));
-  }
-
-  isStepCompleted(stepType: StepType): boolean {
-    return this.stepperService.isStepCompleted(stepType);
+    effect(() => {
+      this.stepperService.redirectTo(this.currentRoute());
+    });
   }
 }
