@@ -5,47 +5,35 @@ import { previousStepCompletionGuard } from './guards/previous-step-completion.g
 export const routes: Routes = [
   {
     path: 'stepper',
-    loadComponent: () =>
-      import('./layouts/stepper-layout/stepper-layout.component').then(
-        (m) => m.StepperLayoutComponent
-      ),
+    loadComponent: () => import('./layouts/stepper-layout/stepper-layout.component'),
     children: [
       {
         path: 'details',
-        loadComponent: () =>
-          import('./pages/details-step/details-step.component').then(
-            (m) => m.DetailsStepComponent
-          ),
+        loadComponent: () => import('./pages/details-step/details-step.component'),
       },
       {
         path: 'preferences',
         canActivate: [previousStepCompletionGuard('details')],
-        loadComponent: () =>
-          import('./pages/preferences-step/preferences-step.component').then(
-            (m) => m.PreferencesStepComponent
-          ),
+        loadComponent: () => import('./pages/preferences-step/preferences-step.component'),
       },
       {
         path: 'complete',
         canActivate: [previousStepCompletionGuard('preferences')],
-        loadComponent: () =>
-          import('./pages/complete-step/complete-step.component').then(
-            (m) => m.CompleteStepComponent
-          ),
+        loadComponent: () => import('./pages/complete-step/complete-step.component'),
       },
       {
         path: '**',
-        redirectTo: '',
+        redirectTo: 'details',
       },
     ],
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'test',
+    redirectTo: 'stepper',
   },
   {
     path: '**',
-    redirectTo: 'test',
+    redirectTo: 'stepper',
   },
 ];
