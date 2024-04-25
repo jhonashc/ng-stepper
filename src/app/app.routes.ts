@@ -1,13 +1,14 @@
 import { Routes } from '@angular/router';
 
-import { StepperLayoutComponent } from './layouts/stepper-layout/stepper-layout.component';
-
 import { previousStepCompletionGuard } from './guards/previous-step-completion.guard';
 
 export const routes: Routes = [
   {
     path: 'stepper',
-    component: StepperLayoutComponent,
+    loadComponent: () =>
+      import('./layouts/stepper-layout/stepper-layout.component').then(
+        (m) => m.StepperLayoutComponent
+      ),
     children: [
       {
         path: 'details',
@@ -41,10 +42,10 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'stepper',
+    redirectTo: 'test',
   },
   {
     path: '**',
-    redirectTo: 'stepper',
+    redirectTo: 'test',
   },
 ];
