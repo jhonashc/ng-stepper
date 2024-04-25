@@ -9,7 +9,7 @@ import { StepperService } from '../../services/stepper.service';
   templateUrl: './complete-step.component.html',
   styleUrl: './complete-step.component.scss',
 })
-export class CompleteStepComponent {
+export default class CompleteStepComponent {
   private stepperService = inject(StepperService);
 
   prevStep(): void {

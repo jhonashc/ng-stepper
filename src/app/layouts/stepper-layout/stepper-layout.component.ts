@@ -13,7 +13,7 @@ import { StepName } from '../../types/stepper.type';
   templateUrl: './stepper-layout.component.html',
   styleUrl: './stepper-layout.component.scss',
 })
-export class StepperLayoutComponent {
+export default class StepperLayoutComponent {
   private stepperService = inject(StepperService);
 
   public stepList = this.stepperService.stepList;
