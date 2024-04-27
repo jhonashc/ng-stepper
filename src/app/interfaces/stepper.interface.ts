@@ -25,7 +25,7 @@ export interface StepperState {
 
 export interface Step {
   id: number;
+  name?: StepName;
   label: string;
   route: string;
-  name?: StepName;
 }

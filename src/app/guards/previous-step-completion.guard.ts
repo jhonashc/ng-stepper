@@ -1,5 +1,5 @@
-import { CanActivateFn, Router, UrlTree } from '@angular/router';
 import { inject } from '@angular/core';
+import { CanActivateFn, Router, UrlTree } from '@angular/router';
 
 import { StepperService } from '../services/stepper.service';
 

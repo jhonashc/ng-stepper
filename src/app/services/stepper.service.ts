@@ -21,15 +21,15 @@ export class StepperService {
   public stepList: Step[] = [
     {
       id: 1,
+      name: 'details',
       label: 'Details',
       route: '/stepper/details',
-      name: 'details',
     },
     {
       id: 2,
+      name: 'preferences',
       label: 'Preferences',
       route: '/stepper/preferences',
-      name: 'preferences',
     },
     {
       id: 3,
@@ -38,8 +38,7 @@ export class StepperService {
     },
   ];
 
-  public stepperState = computed(() => this._stepperState());
-  public currentIndex = computed(() => this.stepperState().currentIndex);
+  public currentIndex = computed(() => this._stepperState().currentIndex);
   public currentRoute = computed(() => this.stepList[this.currentIndex()].route);
 
   constructor() {
@@ -58,13 +57,6 @@ export class StepperService {
     this._stepperState.update((state) => ({
       ...state,
       currentIndex: state.currentIndex - 1,
-    }));
-  }
-
-  setCurrentIndex(index: number): void {
-    this._stepperState.update((state) => ({
-      ...state,
-      currentIndex: index,
     }));
   }
 
